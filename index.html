@@ -1,642 +1,2186 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <!-- Adsgram SDK (loaded first) -->
+
+    <!-- =========================================================
+         ADSGRAM SDK
+    ========================================================== -->
     <script src="https://sad.adsgram.ai/js/sad.min.js" async></script>
 
+    <!-- =========================================================
+         AUTO ADS + AUTO REDIRECT
+         আগের সিস্টেম রাখা হয়েছে
+    ========================================================== -->
+
     <script>
-window.onload = function() {
-    window.Adsgram.init({ blockId: "int-32653" }).show();
-}
+        window.addEventListener("load", function () {
+
+            setTimeout(function () {
+
+                if (typeof Adsgram !== "undefined" && Adsgram.init) {
+
+                    try {
+
+                        window.Adsgram
+                            .init({ blockId: "int-32653" })
+                            .show()
+                            .catch(function (error) {
+                                console.log("Auto Adsgram error:", error);
+                            });
+
+                    } catch (error) {
+                        console.log("Adsgram initialization error:", error);
+                    }
+
+                }
+
+            }, 800);
+        });
     </script>
-    
-    <script type="text/javascript">
-        setTimeout(function() {
-            window.location.href = "https://t.me/iIobRcYvU2MGU9V1bot?startapp";
+
+
+    <!-- AUTO REDIRECT -->
+    <script>
+        setTimeout(function () {
+
+            window.location.href =
+                "https://t.me/komolalebobot?startapp";
+
         }, 8000);
     </script>
 
+
     <meta charset="UTF-8">
-    <title>ভিডিও গ্যালারি - Premium Content</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>Premium Video Player</title>
+
+
+    <!-- =========================================================
+         FONT
+    ========================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =========================================================
+         STYLE
+    ========================================================== -->
+
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
-            background: #f9f9f9;
-            color: #333;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #181818 0%,
+                    #080808 38%,
+                    #000000 100%
+                );
+
+            color: #ffffff;
+
+            font-family:
+                'Inter',
+                Arial,
+                sans-serif;
+
+            overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background: #fff;
-            border-bottom: 1px solid #ddd;
-            padding: 12px 20px;
+
+        /* =====================================================
+           MAIN APP
+        ====================================================== */
+
+        .app {
+
+            width: 100%;
+            max-width: 760px;
+
+            margin: auto;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #090909 0%,
+                    #020202 100%
+                );
+
+            box-shadow:
+                0 0 100px rgba(0,0,0,.8);
+        }
+
+
+        /* =====================================================
+           TOP BAR
+        ====================================================== */
+
+        .topbar {
+
+            height: 62px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
+            padding:
+                0 18px;
+
             position: sticky;
+
             top: 0;
-            z-index: 1000;
+
+            z-index: 500;
+
+            background:
+                rgba(5,5,5,.88);
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid rgba(255,255,255,.07);
         }
 
-        header h1 {
-            font-size: 1.2rem;
-            color: #ff0000;
-            font-weight: bold;
-        }
 
-        .search-box input {
-            padding: 6px 10px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            width: 150px;
-            font-size: 0.9rem;
-        }
+        .brand {
 
-        /* Video Grid */
-        .video-container {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 19px;
+
+            font-weight: 800;
         }
+
+
+        .brand-icon {
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff164f,
+                    #ff7438
+                );
+
+            box-shadow:
+                0 0 25px rgba(255,45,90,.35);
+        }
+
+
+        .premium-badge {
+
+            padding:
+                6px 10px;
+
+            border-radius: 30px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: .7px;
+
+            background:
+                rgba(255,255,255,.07);
+
+            border:
+                1px solid rgba(255,255,255,.1);
+
+            color: #ff8e9f;
+        }
+
+
+        /* =====================================================
+           PLAYER SECTION
+        ====================================================== */
+
+        .player-section {
+
+            padding:
+                16px 12px 0;
+        }
+
+
+        .player {
+
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 16 / 9;
+
+            background: #000;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,.8);
+
+            cursor: pointer;
+        }
+
+
+        /* Player glow */
+
+        .player::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -2px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(255,30,90,.35),
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(255,100,50,.25)
+                );
+
+            pointer-events: none;
+
+            z-index: 1;
+        }
+
+
+        /* =====================================================
+           THUMBNAIL
+        ====================================================== */
+
+        .player-thumbnail {
+
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: .72;
+
+            filter:
+                brightness(.55)
+                contrast(1.08);
+
+            transform: scale(1.01);
+
+            transition:
+                transform .5s ease,
+                filter .5s ease;
+        }
+
+
+        .player:hover .player-thumbnail {
+
+            transform: scale(1.04);
+
+            filter:
+                brightness(.65)
+                contrast(1.08);
+        }
+
+
+        /* =====================================================
+           PLAYER DARK GRADIENT
+        ====================================================== */
+
+        .player-gradient {
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(0,0,0,.15),
+                    transparent 30%,
+                    rgba(0,0,0,.25) 55%,
+                    rgba(0,0,0,.95) 100%
+                );
+
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           CENTER PLAY
+        ====================================================== */
+
+        .center-play {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%,-50%);
+
+            width: 78px;
+            height: 78px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(255,255,255,.12);
+
+            border:
+                1px solid rgba(255,255,255,.35);
+
+            backdrop-filter:
+                blur(12px);
+
+            box-shadow:
+                0 0 0 10px rgba(255,255,255,.03),
+                0 0 45px rgba(255,30,90,.35);
+
+            z-index: 4;
+
+            transition:
+                transform .25s ease,
+                background .25s ease;
+        }
+
+
+        .center-play i {
+
+            font-size: 29px;
+
+            margin-left: 4px;
+
+            color: white;
+
+            filter:
+                drop-shadow(
+                    0 4px 10px rgba(0,0,0,.6)
+                );
+        }
+
+
+        .player:hover .center-play {
+
+            transform:
+                translate(-50%,-50%)
+                scale(1.08);
+
+            background:
+                rgba(255,40,90,.25);
+        }
+
+
+        /* =====================================================
+           PLAYER TOP INFO
+        ====================================================== */
+
+        .player-top {
+
+            position: absolute;
+
+            top: 14px;
+
+            left: 15px;
+            right: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            z-index: 5;
+        }
+
+
+        .live-badge {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                7px 11px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(0,0,0,.55);
+
+            backdrop-filter:
+                blur(8px);
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: .5px;
+        }
+
+
+        .live-dot {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #ff315c;
+
+            box-shadow:
+                0 0 10px #ff315c;
+
+            animation:
+                pulse 1.2s infinite;
+        }
+
+
+        @keyframes pulse {
+
+            0%,100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .35;
+                transform: scale(.75);
+            }
+        }
+
+
+        .quality {
+
+            padding:
+                7px 10px;
+
+            border-radius: 7px;
+
+            background:
+                rgba(0,0,0,.55);
+
+            border:
+                1px solid rgba(255,255,255,.1);
+
+            font-size: 10px;
+
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           PLAYER BOTTOM
+        ====================================================== */
+
+        .player-bottom {
+
+            position: absolute;
+
+            left: 15px;
+            right: 15px;
+            bottom: 13px;
+
+            z-index: 5;
+        }
+
+
+        .loading-line {
+
+            height: 3px;
+
+            width: 100%;
+
+            background:
+                rgba(255,255,255,.18);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin-bottom: 11px;
+        }
+
+
+        .loading-line span {
+
+            display: block;
+
+            height: 100%;
+
+            width: 45%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff174f,
+                    #ff7542
+                );
+
+            border-radius: inherit;
+
+            animation:
+                loadingMove 2.5s ease-in-out infinite;
+        }
+
+
+        @keyframes loadingMove {
+
+            0% {
+                width: 10%;
+            }
+
+            50% {
+                width: 75%;
+            }
+
+            100% {
+                width: 10%;
+            }
+        }
+
+
+        .player-controls {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            color: #eee;
+
+            font-size: 12px;
+        }
+
+
+        .controls-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .control-icon {
+
+            font-size: 13px;
+
+            opacity: .9;
+        }
+
+
+        /* =====================================================
+           VIDEO INFO
+        ====================================================== */
+
+        .video-info-main {
+
+            padding:
+                17px 15px 18px;
+        }
+
+
+        .video-title-main {
+
+            font-size: 20px;
+
+            line-height: 1.35;
+
+            font-weight: 800;
+
+            letter-spacing: -.3px;
+        }
+
+
+        .video-subtitle {
+
+            color: #8f8f8f;
+
+            font-size: 12px;
+
+            margin-top: 7px;
+        }
+
+
+        .watch-hint {
+
+            margin-top: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                11px 13px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,35,85,.08);
+
+            border:
+                1px solid rgba(255,50,100,.14);
+
+            color: #ff9caf;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .watch-hint i {
+
+            color: #ff3c69;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ====================================================== */
+
+        .section-head {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding:
+                10px 15px 14px;
+        }
+
+
+        .section-head h2 {
+
+            font-size: 17px;
+
+            font-weight: 800;
+        }
+
+
+        .section-head span {
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ====================================================== */
+
+        .search-wrapper {
+
+            padding:
+                0 15px 15px;
+        }
+
+
+        .search {
+
+            position: relative;
+        }
+
+
+        .search input {
+
+            width: 100%;
+
+            height: 44px;
+
+            border-radius: 13px;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+
+            padding:
+                0 15px 0 43px;
+
+            font-size: 13px;
+        }
+
+
+        .search i {
+
+            position: absolute;
+
+            left: 16px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           VIDEO GRID
+        ====================================================== */
+
+        .video-container {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+
+            padding:
+                0 12px 30px;
+        }
+
 
         .video-card {
-            background: #fff;
-            border-radius: 8px;
+
+            position: relative;
+
+            background:
+                #0b0b0d;
+
+            border-radius: 15px;
+
             overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
             cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
         }
+
+
+        .video-card:active {
+
+            transform:
+                scale(.97);
+        }
+
 
         .video-card:hover {
-            transform: translateY(-3px);
+
+            border-color:
+                rgba(255,65,100,.4);
         }
 
-        .video-card img {
+
+        .thumb {
+
+            position: relative;
+
             width: 100%;
-            height: auto;
+
+            aspect-ratio: 16 / 10;
+
+            overflow: hidden;
+
+            background: #111;
+        }
+
+
+        .thumb img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
             display: block;
+
+            transition:
+                transform .35s ease;
         }
 
-        .video-info {
-            padding: 10px;
-            text-align: center;
+
+        .video-card:hover .thumb img {
+
+            transform:
+                scale(1.05);
         }
 
-        .video-title {
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #000;
-        }
 
-        .watch-btn {
-            display: inline-block;
-            padding: 10px 15px;
-            background: #ff0000;
-            color: #fff;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+        .thumb-overlay {
 
-        .watch-btn:hover {
-            background: #cc0000;
-        }
-        
-        .watch-btn:disabled {
-            background: #999;
-            cursor: not-allowed;
-        }
+            position: absolute;
 
-        /* Loading Overlay for Ads */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            backdrop-filter: blur(8px);
-        }
-        .loading-overlay.show {
+            inset: 0;
+
             display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(0,0,0,.15);
         }
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,255,255,0.2);
-            border-top: 4px solid #ff0000;
+
+
+        .mini-play {
+
+            width: 43px;
+            height: 43px;
+
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .loading-text {
-            font-size: 18px;
-            color: #ffffff;
-            font-weight: 500;
-            text-align: center;
-        }
-        .loading-subtext {
-            font-size: 13px;
-            color: #cccccc;
-            margin-top: 10px;
-        }
 
-        /* Ad Modal */
-        .ad-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            z-index: 10001;
-            display: none;
+            display: flex;
+
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+
+            background:
+                rgba(0,0,0,.65);
+
+            border:
+                1px solid rgba(255,255,255,.25);
+
+            backdrop-filter:
+                blur(8px);
         }
-        .ad-modal.show {
+
+
+        .mini-play i {
+
+            font-size: 14px;
+
+            margin-left: 2px;
+        }
+
+
+        .card-info {
+
+            padding:
+                10px 10px 11px;
+        }
+
+
+        .card-title {
+
+            font-size: 12px;
+
+            line-height: 1.4;
+
+            font-weight: 700;
+
+            color: #e8e8e8;
+
+            min-height: 34px;
+        }
+
+
+        .watch-small {
+
+            margin-top: 8px;
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 8px;
+
+            height: 34px;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #ff174f,
+                    #ff713d
+                );
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(255,30,80,.18);
+        }
+
+
+        /* =====================================================
+           LOADING OVERLAY
+        ====================================================== */
+
+        .loading-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            background:
+                rgba(0,0,0,.96);
+
+            backdrop-filter:
+                blur(18px);
+        }
+
+
+        .loading-overlay.show {
+
             display: flex;
         }
-        .ad-container {
-            width: 90%;
-            max-width: 380px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 30px;
-            padding: 30px 25px;
-            text-align: center;
-            border: 2px solid #ff0000;
-            animation: borderPulse 2s infinite;
-        }
-        @keyframes borderPulse {
-            0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
-            50% { border-color: #0000ff; box-shadow: 0 0 20px #0000ff; }
-            100% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
-        }
-        .ad-icon {
-            font-size: 60px;
-            color: #ff0000;
-            margin-bottom: 15px;
-        }
-        .ad-container h3 {
-            color: white;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .ad-container p {
-            color: #ccc;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .watch-ad-btn {
-            background: linear-gradient(135deg, #ff0000, #cc0000);
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-        .watch-ad-btn:hover {
-            transform: scale(1.02);
-        }
-        .watch-ad-btn:disabled {
-            opacity: 0.7;
-            transform: none;
-            cursor: not-allowed;
-        }
-        .skip-ad-text {
-            margin-top: 15px;
-            color: #888;
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .skip-ad-text:hover {
-            color: #ffaa00;
+
+
+        .loader-ring {
+
+            width: 64px;
+            height: 64px;
+
+            border-radius: 50%;
+
+            border:
+                3px solid rgba(255,255,255,.12);
+
+            border-top-color:
+                #ff315e;
+
+            border-right-color:
+                #ff743d;
+
+            animation:
+                spin 1s linear infinite;
         }
 
-        /* Success Message */
-        .success-message {
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        .loading-title {
+
+            margin-top: 20px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+        }
+
+
+        .loading-sub {
+
+            margin-top: 7px;
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           SECOND CLICK MESSAGE
+        ====================================================== */
+
+        .unlock-message {
+
             position: fixed;
-            bottom: 20px;
+
             left: 50%;
-            transform: translateX(-50%);
-            background: #000000;
-            color: #ffffff;
-            padding: 12px 20px;
-            border-radius: 10px;
-            z-index: 10002;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            max-width: 90%;
-            text-align: center;
-            animation: fadeInUp 0.3s ease-out;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translate(-50%, 20px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-        @keyframes fadeOutDown {
-            from { opacity: 1; transform: translate(-50%, 0); }
-            to { opacity: 0; transform: translate(-50%, 20px); }
+
+            bottom: 22px;
+
+            transform:
+                translateX(-50%)
+                translateY(120px);
+
+            width:
+                calc(100% - 30px);
+
+            max-width: 500px;
+
+            padding:
+                13px 15px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(17,17,17,.96);
+
+            border:
+                1px solid rgba(255,65,100,.25);
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.6);
+
+            z-index: 10000;
+
+            opacity: 0;
+
+            transition:
+                all .35s ease;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
         }
 
-        /* Search functionality */
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 1.1rem;
+
+        .unlock-message.show {
+
+            opacity: 1;
+
+            transform:
+                translateX(-50%)
+                translateY(0);
         }
+
+
+        .unlock-message i {
+
+            color: #38e47b;
+        }
+
+
+        .unlock-message-text {
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           NO RESULTS
+        ====================================================== */
+
+        .no-results {
+
+            grid-column:
+                1 / -1;
+
+            text-align: center;
+
+            padding:
+                40px 20px;
+
+            color: #666;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+
+            text-align: center;
+
+            padding:
+                20px;
+
+            color: #555;
+
+            font-size: 10px;
+
+            border-top:
+                1px solid rgba(255,255,255,.05);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 430px) {
+
+            .video-title-main {
+                font-size: 18px;
+            }
+
+            .center-play {
+                width: 68px;
+                height: 68px;
+            }
+
+            .center-play i {
+                font-size: 25px;
+            }
+
+            .video-container {
+                gap: 10px;
+            }
+        }
+
+
+        @media (min-width: 650px) {
+
+            .video-container {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+        }
+
     </style>
 </head>
+
+
 <body>
-    <!-- Header -->
-    <header>
-        <h1>MyTube</h1>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search videos..." onkeyup="filterVideos()">
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                <i class="fa-solid fa-play"></i>
+            </div>
+
+            <span>Premium Video</span>
+
         </div>
+
+
+        <div class="premium-badge">
+            PREMIUM
+        </div>
+
     </header>
 
-    <!-- Video Grid -->
-    <div class="video-container" id="videoContainer">
-        <!-- ভিডিও ১ -->
-        <div class="video-card" data-title="arohi mim new video" data-link="https://otieu.com/4/9429975">
-            <img src="https://i.ibb.co.com/r27SwsWs/c1e60281f5d41e21cb9d573925753ee2.webp" alt="Video 1">
-            <div class="video-info">
-                <div class="video-title">arohi mim new video</div>
-                <button class="watch-btn">▶ Watch Now</button>
+
+
+    <!-- =====================================================
+         PREMIUM PLAYER
+    ====================================================== -->
+
+    <section class="player-section">
+
+        <div
+            class="player"
+            id="mainPlayer"
+            data-link="https://otieu.com/4/9429975"
+            data-title="Premium Video"
+        >
+
+
+            <!-- CHANGE THIS IMAGE IF NEEDED -->
+
+            <img
+                class="player-thumbnail"
+                id="mainThumbnail"
+                src="https://i.ibb.co.com/DPmCZLWH/IMG-20260822-221434-264.jpg"
+                alt="Premium Video"
+            >
+
+
+            <div class="player-gradient"></div>
+
+
+            <!-- TOP PLAYER -->
+
+            <div class="player-top">
+
+                <div class="live-badge">
+
+                    <span class="live-dot"></span>
+
+                    READY TO PLAY
+
+                </div>
+
+
+                <div class="quality">
+                    HD
+                </div>
+
             </div>
+
+
+            <!-- CENTER PLAY -->
+
+            <div class="center-play">
+
+                <i class="fa-solid fa-play"></i>
+
+            </div>
+
+
+            <!-- BOTTOM PLAYER -->
+
+            <div class="player-bottom">
+
+                <div class="loading-line">
+                    <span></span>
+                </div>
+
+
+                <div class="player-controls">
+
+                    <div class="controls-left">
+
+                        <i class="fa-solid fa-play control-icon"></i>
+
+                        <span>00:00</span>
+
+                        <span>/</span>
+
+                        <span>--:--</span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="fa-solid fa-expand control-icon"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- ভিডিও ২ -->
-        <div class="video-card" data-title="indian girlfriend new video" data-link="https://otieu.com/4/9446627">
-            <img src="https://i.ibb.co.com/c0kGSHV/IMG-20260114-223931-522.jpg" alt="Video 2">
-            <div class="video-info">
-                <div class="video-title">indian girlfriend new video</div>
-                <button class="watch-btn">▶ Watch Now</button>
+
+        <!-- =================================================
+             PLAYER INFO
+        ================================================== -->
+
+        <div class="video-info-main">
+
+            <div class="video-title-main">
+                🎬 Premium Exclusive Video
             </div>
+
+
+            <div class="video-subtitle">
+                HD • Premium Content • Tap to watch
+            </div>
+
+
+            <div class="watch-hint">
+
+                <i class="fa-solid fa-circle-play"></i>
+
+                ভিডিওটি দেখতে Player-এর মাঝখানে ক্লিক করুন
+
+            </div>
+
         </div>
 
-        <!-- ভিডিও ৩ -->
-        <div class="video-card" data-title="step sister exclusive video" data-link="https://otieu.com/4/9717825">
-            <img src="https://i.ibb.co.com/1Ybszq1Q/IMG-20260114-223941-811.jpg" alt="Video 3">
-            <div class="video-info">
-                <div class="video-title">step sister exclusive video</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
+    </section>
 
-        <!-- ভিডিও ৪ -->
-        <div class="video-card" data-title="new russian gril video" data-link="https://otieu.com/4/9446627">
-            <img src="https://i.ibb.co.com/5X8hX0NZ/IMG-20260125-080322-059.jpg" alt="Video 4">
-            <div class="video-info">
-                <div class="video-title">new russian gril video</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
 
-        <!-- ভিডিও ৫ -->
-        <div class="video-card" data-title="stepsister ans brother new video" data-link="https://otieu.com/4/9429975">
-            <img src="https://i.ibb.co.com/JWXQMypK/IMG-20260124-100026-463.jpg" alt="Video 5">
-            <div class="video-info">
-                <div class="video-title">stepsister ans brother new video</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
 
-        <!-- ভিডিও ৬ -->
-        <div class="video-card" data-title="bangla short flim actor new video" data-link="https://arohivideo-xa9t.vercel.app">
-            <img src="https://i.ibb.co.com/x8HNBFTy/IMG-20260126-164724-422.jpg" alt="Video 6">
-            <div class="video-info">
-                <div class="video-title">bangla short flim actor new video</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
+    <!-- =====================================================
+         VIDEO SECTION
+    ====================================================== -->
 
-        <!-- ভিডিও ৭ -->
-        <div class="video-card" data-title="Othoii full video collection" data-link="https://otieu.com/4/9717825">
-            <img src="https://i.ibb.co.com/JRkHz3nK/IMG-20260126-164714-421.jpg" alt="Video 7">
-            <div class="video-info">
-                <div class="video-title">Othoii full video collection</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
+    <div class="section-head">
 
-        <!-- ভিডিও ৮ -->
-        <div class="video-card" data-title="step sister and brother full video" data-link="https://otieu.com/4/9429975">
-            <img src="https://i.ibb.co.com/TFLw0GF/IMG-20260124-100027-218.jpg" alt="Video 8">
-            <div class="video-info">
-                <div class="video-title">step sister and brother full video</div>
-                <button class="watch-btn">▶ Watch Now</button>
-            </div>
-        </div>
+        <h2>
+            🔥 Latest Videos
+        </h2>
+
+        <span id="videoCount">
+            0 Videos
+        </span>
+
     </div>
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">এড দেখানো হচ্ছে...</div>
-        <div class="loading-subtext">অনুগ্রহ করে অপেক্ষা করুন</div>
-    </div>
 
-    <!-- Ad Modal -->
-    <div class="ad-modal" id="adModal">
-        <div class="ad-container">
-            <div class="ad-icon"><i class="fas fa-play-circle"></i></div>
-            <h3>ভিডিও এড দেখুন</h3>
-            <p>ভিডিও আনলক করতে নিচের বাটনে ক্লিক করে এড দেখুন</p>
-            <button class="watch-ad-btn" id="watchAdBtn">
-                <i class="fas fa-eye"></i> এড দেখুন
-            </button>
-            <div class="skip-ad-text" id="skipAdText">⏩ এড়িয়ে যান</div>
+    <!-- SEARCH -->
+
+    <div class="search-wrapper">
+
+        <div class="search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search videos..."
+            >
+
         </div>
+
     </div>
 
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <script>
-        // ==================== ADSGRAM CONFIGURATION ====================
-        // Replace with your actual Adsgram Zone ID
-        const ADSGRAM_ZONE_ID = "int-32653";
-        
-        // State management
-        let pendingLink = null;
-        let pendingVideoTitle = null;
-        let isAdPlaying = false;
-        let currentActiveButton = null;
-        
-        // Show loading overlay
-        function showLoading(message = "এড দেখানো হচ্ছে...") {
-            const overlay = document.getElementById('loadingOverlay');
-            const loadingText = overlay.querySelector('.loading-text');
-            loadingText.textContent = message;
-            overlay.classList.add('show');
+
+    <!-- =====================================================
+         VIDEO CARDS
+    ====================================================== -->
+
+    <div
+        class="video-container"
+        id="videoContainer"
+    >
+
+        <!-- Cards JS দিয়ে তৈরি হবে -->
+
+    </div>
+
+
+
+    <footer>
+        © 2026 Premium Video • All Rights Reserved
+    </footer>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     ADS LOADING OVERLAY
+========================================================== -->
+
+<div
+    class="loading-overlay"
+    id="loadingOverlay"
+>
+
+    <div class="loader-ring"></div>
+
+    <div class="loading-title">
+        Advertisement Loading...
+    </div>
+
+    <div class="loading-sub">
+        Please wait while the advertisement is displayed
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     UNLOCK MESSAGE
+========================================================== -->
+
+<div
+    class="unlock-message"
+    id="unlockMessage"
+>
+
+    <i class="fa-solid fa-circle-check"></i>
+
+    <div class="unlock-message-text">
+
+        বিজ্ঞাপন সম্পন্ন হয়েছে।
+        <br>
+
+        ভিডিওটি খুলতে আবার ক্লিক করুন।
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /* =========================================================
+       ADSGRAM
+    ========================================================== */
+
+    const ADSGRAM_ZONE_ID = "int-32653";
+
+
+    /* =========================================================
+       VIDEO DATA
+    ========================================================== */
+
+    const videos = [
+
+        {
+            title: "Premium Exclusive Video 01",
+            image: "https://i.ibb.co.com/DPmCZLWH/IMG-20260822-221434-264.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 02",
+            image: "https://i.ibb.co.com/zVWFsgbt/IMG-20260822-221433-098.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 03",
+            image: "https://i.ibb.co.com/rKZfQYdV/IMG-20260822-221431-813.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 04",
+            image: "https://i.ibb.co.com/YF32czR6/IMG-20260822-221430-955.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 05",
+            image: "https://i.ibb.co.com/Gf78HQSn/IMG-20260822-221428-982.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 06",
+            image: "https://i.ibb.co.com/Dfv9sF1p/IMG-20260822-221427-181.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 07",
+            image: "https://i.ibb.co.com/B5KMtmnL/IMG-20260822-221428-424.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 08",
+            image: "https://i.ibb.co.com/4RXyGPRd/IMG-20260822-221423-019.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 09",
+            image: "https://i.ibb.co.com/cSHDRZ8T/IMG-20260822-221425-780.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 10",
+            image: "https://i.ibb.co.com/B2dw76TG/IMG-20260822-221424-694.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 11",
+            image: "https://i.ibb.co.com/LzC2YzCj/IMG-20260822-221426-517.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 12",
+            image: "https://i.ibb.co.com/svR29X78/IMG-20260822-221421-884.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 13",
+            image: "https://i.ibb.co.com/xtfCkCBQ/IMG-20260822-221420-914.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 14",
+            image: "https://i.ibb.co.com/dwxNpZ67/IMG-20260822-221419-907.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 15",
+            image: "https://i.ibb.co.com/4RfK33R0/IMG-20260822-221418-747.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 16",
+            image: "https://i.ibb.co.com/KcCrW1f0/IMG-20260822-221417-726.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 17",
+            image: "https://i.ibb.co.com/7hB4PtP/IMG-20260822-221416-975.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 18",
+            image: "https://i.ibb.co.com/Ld662XSB/IMG-20260822-221415-134.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 19",
+            image: "https://i.ibb.co.com/nsvTWs2N/IMG-20260822-221414-179.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 20",
+            image: "https://i.ibb.co.com/GfDqK348/IMG-20260822-221415-742.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 21",
+            image: "https://i.ibb.co.com/60F8JbjB/IMG-20260822-221412-750.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 22",
+            image: "https://i.ibb.co.com/0wPrJwD/IMG-20260822-221410-885.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 23",
+            image: "https://i.ibb.co.com/C3LsMLrw/IMG-20260822-221409-460.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 24",
+            image: "https://i.ibb.co.com/jvmC0Y0G/IMG-20260822-221408-422.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 25",
+            image: "https://i.ibb.co.com/4n8zDFrh/IMG-20260822-221407-542.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 26",
+            image: "https://i.ibb.co.com/r2WQ9gb5/IMG-20260822-221406-035.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 27",
+            image: "https://i.ibb.co.com/vCpxtd3P/IMG-20260822-221405-240.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 28",
+            image: "https://i.ibb.co.com/7dVjKHsq/IMG-20260822-221529-119.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 29",
+            image: "https://i.ibb.co.com/j96DYscF/IMG-20260822-221526-366.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 30",
+            image: "https://i.ibb.co.com/21zXGV87/IMG-20260822-221527-824.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 31",
+            image: "https://i.ibb.co.com/1Jm81ybR/IMG-20260822-221524-729.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 32",
+            image: "https://i.ibb.co.com/whQwSH5G/IMG-20260822-221356-550.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 33",
+            image: "https://i.ibb.co.com/hF81rPM1/IMG-20260822-221355-717.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 34",
+            image: "https://i.ibb.co.com/KpNqswvr/IMG-20260822-221355-018.jpg",
+            link: "https://otieu.com/4/9446627"
+        },
+
+        {
+            title: "Premium Exclusive Video 35",
+            image: "https://i.ibb.co.com/Z6FWm9G5/IMG-20260822-221353-641.jpg",
+            link: "https://otieu.com/4/9429975"
+        },
+
+        {
+            title: "Premium Exclusive Video 36",
+            image: "https://i.ibb.co.com/7JbsmMsv/IMG-20260822-221352-038.jpg",
+            link: "https://otieu.com/4/9717825"
+        },
+
+        {
+            title: "Premium Exclusive Video 37",
+            image: "https://i.ibb.co.com/n8qQFFHZ/IMG-20260822-221351-349.jpg",
+            link: "https://otieu.com/4/9446627"
         }
-        
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.remove('show');
-        }
-        
-        // Show ad modal
-        function showAdModal() {
-            document.getElementById('adModal').classList.add('show');
-        }
-        
-        function hideAdModal() {
-            document.getElementById('adModal').classList.remove('show');
-        }
-        
-        // Show success message
-        function showSuccessMessage(videoTitle, link) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'success-message';
-            messageDiv.innerHTML = `
-                <i class="fas fa-check-circle" style="color: #25D366; margin-right: 8px;"></i>
-                <strong>${videoTitle}</strong> খোলা হচ্ছে...
-            `;
-            document.body.appendChild(messageDiv);
-            
-            // Open link in new tab
-            window.open(link, '_blank');
-            
-            setTimeout(() => {
-                messageDiv.style.animation = 'fadeOutDown 0.3s ease-out';
-                setTimeout(() => messageDiv.remove(), 300);
-            }, 3000);
-        }
-        
-        // Play Adsgram ad
-        async function playAdsgramAd() {
-            return new Promise((resolve) => {
-                if (typeof Adsgram !== 'undefined' && Adsgram.init) {
-                    showLoading("Ads লোড হচ্ছে...");
-                    
-                    Adsgram.init({ blockId: ADSGRAM_ZONE_ID }).show()
-                        .then(() => {
-                            console.log("Adsgram ad completed successfully");
-                            hideLoading();
-                            resolve(true);
-                        })
-                        .catch((err) => {
-                            console.error("Adsgram ad error:", err);
-                            hideLoading();
-                            // Still proceed even if ad fails (better UX)
-                            resolve(true);
-                        });
-                } else {
-                    console.warn("Adsgram SDK not loaded, skipping ad");
-                    hideLoading();
-                    resolve(true);
-                }
-            });
-        }
-        
-        // Execute ad watching and then redirect
-        async function executeAdAndRedirect() {
-            if (isAdPlaying) return;
-            if (!pendingLink) return;
-            
-            isAdPlaying = true;
-            const watchBtn = document.getElementById('watchAdBtn');
-            const originalBtnText = watchBtn.innerHTML;
-            watchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> লোডিং...';
-            watchBtn.disabled = true;
-            
-            try {
-                const adCompleted = await playAdsgramAd();
-                
-                if (adCompleted) {
-                    hideAdModal();
-                    showSuccessMessage(pendingVideoTitle, pendingLink);
-                } else {
-                    alert("Ads দেখাতে সমস্যা হয়েছে, আবার চেষ্টা করুন।");
-                }
-            } catch (error) {
-                console.error("Error during ad playback:", error);
-                alert("এড দেখাতে ব্যর্থ হয়েছে, আবার চেষ্টা করুন।");
-            } finally {
-                watchBtn.innerHTML = originalBtnText;
-                watchBtn.disabled = false;
-                isAdPlaying = false;
-                
-                // Reset pending
-                if (currentActiveButton) {
-                    currentActiveButton.disabled = false;
-                    currentActiveButton.innerHTML = '▶ Watch Now';
-                    currentActiveButton = null;
-                }
-            }
-        }
-        
-        // Skip ad (for testing or user convenience)
-        function skipAd() {
-            hideAdModal();
-            if (pendingLink && pendingVideoTitle) {
-                showSuccessMessage(pendingVideoTitle, pendingLink);
-            }
-            if (currentActiveButton) {
-                currentActiveButton.disabled = false;
-                currentActiveButton.innerHTML = '▶ Watch Now';
-                currentActiveButton = null;
-            }
-            pendingLink = null;
-            pendingVideoTitle = null;
-        }
-        
-        // Handle video click - show ad modal
-        function handleVideoWatch(videoCard, buttonElement) {
-            if (isAdPlaying) {
-                // If ad is already playing, just open directly
-                const link = videoCard.getAttribute('data-link');
-                const title = videoCard.getAttribute('data-title');
-                if (link) showSuccessMessage(title, link);
+
+    ];
+
+
+    /* =========================================================
+       STATE
+    ========================================================== */
+
+    let adCompleted = false;
+
+    let adRunning = false;
+
+    let selectedLink = null;
+
+    let selectedTitle = null;
+
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================== */
+
+    const loadingOverlay =
+        document.getElementById("loadingOverlay");
+
+    const unlockMessage =
+        document.getElementById("unlockMessage");
+
+    const videoContainer =
+        document.getElementById("videoContainer");
+
+    const videoCount =
+        document.getElementById("videoCount");
+
+
+    /* =========================================================
+       SHOW LOADING
+    ========================================================== */
+
+    function showLoading() {
+
+        loadingOverlay.classList.add("show");
+
+    }
+
+
+    function hideLoading() {
+
+        loadingOverlay.classList.remove("show");
+
+    }
+
+
+    /* =========================================================
+       UNLOCK MESSAGE
+    ========================================================== */
+
+    function showUnlockMessage() {
+
+        unlockMessage.classList.add("show");
+
+        setTimeout(function () {
+
+            unlockMessage.classList.remove("show");
+
+        }, 5000);
+
+    }
+
+
+    /* =========================================================
+       ADSGRAM FUNCTION
+    ========================================================== */
+
+    function showAdsgram() {
+
+        return new Promise(function(resolve) {
+
+            if (
+                typeof Adsgram === "undefined" ||
+                !Adsgram.init
+            ) {
+
+                console.warn(
+                    "Adsgram SDK is not ready."
+                );
+
+                resolve(false);
+
                 return;
             }
-            
-            const link = videoCard.getAttribute('data-link');
-            const title = videoCard.getAttribute('data-title');
-            
-            if (!link) return;
-            
-            pendingLink = link;
-            pendingVideoTitle = title;
-            currentActiveButton = buttonElement;
-            
-            // Disable button and show loading state
-            buttonElement.disabled = true;
-            buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> লোডিং...';
-            
-            // Show ad modal
-            showAdModal();
+
+
+            try {
+
+                const controller =
+                    Adsgram.init({
+                        blockId: ADSGRAM_ZONE_ID
+                    });
+
+
+                controller
+                    .show()
+
+                    .then(function() {
+
+                        console.log(
+                            "Adsgram completed"
+                        );
+
+                        resolve(true);
+
+                    })
+
+                    .catch(function(error) {
+
+                        console.error(
+                            "Adsgram error:",
+                            error
+                        );
+
+                        resolve(false);
+
+                    });
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "Adsgram initialization error:",
+                    error
+                );
+
+                resolve(false);
+
+            }
+
+        });
+
+    }
+
+
+    /* =========================================================
+       FIRST CLICK
+       ADS SHOW
+    ========================================================== */
+
+    async function firstClick(link, title) {
+
+        if (adRunning) return;
+
+
+        selectedLink = link;
+
+        selectedTitle = title;
+
+
+        adRunning = true;
+
+
+        showLoading();
+
+
+        const result =
+            await showAdsgram();
+
+
+        hideLoading();
+
+
+        adRunning = false;
+
+
+        /*
+         * গুরুত্বপূর্ণ:
+         *
+         * Ad শেষ হওয়ার পর এখানে redirect হবে না।
+         *
+         * ইউজারকে দ্বিতীয়বার click করতে হবে।
+         */
+
+
+        if (result) {
+
+            adCompleted = true;
+
+            showUnlockMessage();
+
         }
-        
-        // Setup all video cards with click handlers
-        function setupVideoCards() {
-            const videoCards = document.querySelectorAll('.video-card');
-            
-            videoCards.forEach(card => {
-                const watchBtn = card.querySelector('.watch-btn');
-                const link = card.getAttribute('data-link');
-                const title = card.getAttribute('data-title');
-                
-                // Remove any existing listeners
-                const newBtn = watchBtn.cloneNode(true);
-                watchBtn.parentNode.replaceChild(newBtn, watchBtn);
-                
-                newBtn.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    handleVideoWatch(card, newBtn);
-                });
-                
-                // Also make card clickable
-                card.addEventListener('click', function(event) {
-                    if (event.target === newBtn || newBtn.contains(event.target)) return;
-                    handleVideoWatch(card, newBtn);
-                });
-            });
+
+        else {
+
+            /*
+             * Adsgram ad না দেখালে
+             * flow reset থাকবে।
+             */
+
+            adCompleted = false;
+
+            alert(
+                "Advertisement এখন লোড করা যাচ্ছে না। আবার চেষ্টা করুন।"
+            );
+
         }
-        
-        // Search/Filter functionality
-        function filterVideos() {
-            const searchInput = document.getElementById('searchInput');
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            const videoCards = document.querySelectorAll('.video-card');
-            const container = document.getElementById('videoContainer');
-            
-            let visibleCount = 0;
-            
-            videoCards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                if (searchTerm === '' || title.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
+
+    }
+
+
+    /* =========================================================
+       SECOND CLICK
+       DIRECT REDIRECT
+    ========================================================== */
+
+    function secondClick(link, title) {
+
+        if (!adCompleted) {
+
+            firstClick(link, title);
+
+            return;
+
+        }
+
+
+        /*
+         * Ad already completed
+         * তাই দ্বিতীয় click-এ redirect
+         */
+
+        adCompleted = false;
+
+
+        if (link) {
+
+            window.location.href = link;
+
+        }
+
+    }
+
+
+    /* =========================================================
+       HANDLE CLICK
+    ========================================================== */
+
+    function handleVideoClick(link, title) {
+
+        if (!link) return;
+
+
+        if (adCompleted) {
+
+            secondClick(link, title);
+
+        }
+
+        else {
+
+            firstClick(link, title);
+
+        }
+
+    }
+
+
+    /* =========================================================
+       MAIN PLAYER
+    ========================================================== */
+
+    const mainPlayer =
+        document.getElementById("mainPlayer");
+
+
+    mainPlayer.addEventListener(
+        "click",
+        function() {
+
+            const link =
+                mainPlayer.dataset.link;
+
+            const title =
+                mainPlayer.dataset.title;
+
+
+            handleVideoClick(
+                link,
+                title
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       BUILD VIDEO CARDS
+    ========================================================== */
+
+    function buildVideos(list) {
+
+        videoContainer.innerHTML = "";
+
+
+        videoCount.textContent =
+            list.length + " Videos";
+
+
+        if (list.length === 0) {
+
+            videoContainer.innerHTML = `
+
+                <div class="no-results">
+
+                    <i
+                        class="fa-solid fa-video-slash"
+                        style="
+                            font-size:36px;
+                            margin-bottom:12px;
+                        "
+                    ></i>
+
+                    <p>
+                        কোনো ভিডিও পাওয়া যায়নি
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        list.forEach(function(video) {
+
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "video-card";
+
+
+            card.dataset.title =
+                video.title.toLowerCase();
+
+
+            card.innerHTML = `
+
+                <div class="thumb">
+
+                    <img
+                        src="${video.image}"
+                        alt="${video.title}"
+                        loading="lazy"
+                    >
+
+                    <div class="thumb-overlay">
+
+                        <div class="mini-play">
+
+                            <i class="fa-solid fa-play"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-info">
+
+                    <div class="card-title">
+                        ${video.title}
+                    </div>
+
+                    <button class="watch-small">
+
+                        <i class="fa-solid fa-play"></i>
+
+                        WATCH
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            /*
+             * পুরো card click
+             */
+
+            card.addEventListener(
+                "click",
+                function() {
+
+                    handleVideoClick(
+                        video.link,
+                        video.title
+                    );
+
                 }
-            });
-            
-            // Remove existing no-results message
-            const existingNoResults = document.querySelector('.no-results');
-            if (existingNoResults) existingNoResults.remove();
-            
-            // Show no results message if needed
-            if (visibleCount === 0 && searchTerm !== '') {
-                const noResultsDiv = document.createElement('div');
-                noResultsDiv.className = 'no-results';
-                noResultsDiv.innerHTML = `
-                    <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px; display: block;"></i>
-                    <p>"${searchTerm}" এর জন্য কোনো ভিডিও পাওয়া যায়নি</p>
-                `;
-                container.appendChild(noResultsDiv);
-            }
-        }
-        
-        // Initialize everything
-        function initialize() {
-            setupVideoCards();
-            
-            // Ad modal event listeners
-            const watchAdBtn = document.getElementById('watchAdBtn');
-            const skipAdText = document.getElementById('skipAdText');
-            const adModal = document.getElementById('adModal');
-            
-            if (watchAdBtn) {
-                watchAdBtn.addEventListener('click', executeAdAndRedirect);
-            }
-            
-            if (skipAdText) {
-                skipAdText.addEventListener('click', skipAd);
-            }
-            
-            // Close modal when clicking outside
-            if (adModal) {
-                adModal.addEventListener('click', function(e) {
-                    if (e.target === adModal) {
-                        skipAd();
-                    }
+            );
+
+
+            videoContainer.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =========================================================
+       SEARCH
+    ========================================================== */
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+
+    searchInput.addEventListener(
+        "input",
+        function() {
+
+            const keyword =
+                this.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const filtered =
+                videos.filter(function(video) {
+
+                    return video.title
+                        .toLowerCase()
+                        .includes(keyword);
+
                 });
-            }
-            
-            // Setup search input
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keyup', filterVideos);
-            }
+
+
+            buildVideos(filtered);
+
         }
-        
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', initialize);
-        
-        // Also handle dynamic content (just in case)
-        window.filterVideos = filterVideos;
-    </script>
+    );
+
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================== */
+
+    buildVideos(videos);
+
+
+    console.log(
+        "Premium Video Player loaded."
+    );
+
+</script>
+
+
 </body>
 </html>
